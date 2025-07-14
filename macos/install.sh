@@ -18,18 +18,22 @@ fi
 echo "Installing stow and applying dotfiles"
 brew install stow
 if [ -d "$HOME/.dotfiles" ]; then
-    cd $HOME/.dotfiles
+    pushd $HOME/.dotfiles
     git pull --rebase
+    popd
 else
     git clone https://github.com/petrmiko/dotfiles.git $HOME/.dotfiles
     rm $HOME/.zprofile $HOME/.zshrc || true
-    cd $HOME/.dotfiles
+    pushd $HOME/.dotfiles
     stow alacritty fastfetch ghostty git starship tmux zsh
+    popd
 fi
 
 # install remaining dependencies
 echo "Installing remaining brew dependencies"
+curl -O https://raw.githubusercontent.com/petrmiko/install-scripts/main/macos/Brewfile
 brew bundle install || true
+rm Brewfile
 
 # Rust
 if ! command -v rustup --version 2>&1 >/dev/null; then
