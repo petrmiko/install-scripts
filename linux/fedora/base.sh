@@ -17,7 +17,7 @@ sudo dnf install --skip-unavailable -y stow \
     fastfetch \
     duf \
     btop htop \
-    bat nano micro jq \
+    bat nano neovim micro jq \
     newt \
     postgresql \
     zsh \
