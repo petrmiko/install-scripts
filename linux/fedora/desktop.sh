@@ -29,6 +29,9 @@ pushd $HOME/.dotfiles
 stow alacritty ghostty
 popd
 
+# flatpaks
+sh $SCRIPT_DIR/../flatpak.sh
+
 # VS Code
 if ! command -v code -v 2>&1 >/dev/null; then
     echo "Installing VS Code"
