@@ -7,6 +7,9 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 # install common base
 sh $SCRIPT_DIR/base.sh
 
+# fonts
+sh $SCRIPT_DIR/../fonts.sh
+
 # gui DNF apps
 sudo dnf install -y alacritty firefox solaar
 

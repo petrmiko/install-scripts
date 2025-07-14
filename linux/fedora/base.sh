@@ -2,8 +2,6 @@
 
 set -eu
 
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-
 sudo dnf update -y
 
 # build utils and dependencies
@@ -84,8 +82,5 @@ if [ ! "$SHELL" == "/usr/bin/zsh" ]; then
     echo "Changing shell to ZSH"
     chsh -s /usr/bin/zsh
 fi
-
-# fonts
-sh $SCRIPT_DIR/../fonts.sh
 
 echo "Done - Base install is ready to use"
