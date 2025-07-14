@@ -43,16 +43,6 @@ else
     echo "VS Code is already installed"
 fi
 
-# Tailscale
-if ! command -v tailscale --version 2>&1 >/dev/null; then
-    sudo dnf config-manager addrepo --overwrite --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
-    sudo dnf install tailscale -y
-    sudo systemctl enable --now tailscaled
-    sudo tailscale up
-else
-    echo "Tailscale is already installed"
-fi
-
 # Zed.dev
 if ! command -v zed --version 2>&1 >/dev/null; then
     curl -f https://zed.dev/install.sh | sh

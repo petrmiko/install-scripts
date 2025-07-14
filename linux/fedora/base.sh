@@ -18,6 +18,7 @@ sudo dnf install --skip-unavailable -y stow \
     duf \
     btop htop \
     bat nano micro jq \
+    newt \
     postgresql \
     zsh
 
@@ -81,6 +82,20 @@ fi
 if [ ! "$SHELL" == "/usr/bin/zsh" ]; then
     echo "Changing shell to ZSH"
     chsh -s /usr/bin/zsh
+fi
+
+# Tailscale
+if ! command -v tailscale --version 2>&1 >/dev/null; then
+    if (whiptail --title "Tailscale" --yesno "Do you want to install Tailscale?\nAlert: needs to register device via browser!" 8 78); then
+        sudo dnf config-manager addrepo --overwrite --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+        sudo dnf install tailscale -y
+        sudo systemctl enable --now tailscaled
+        sudo tailscale up
+    else
+        echo "Tailscale not requested, skipping installation"
+    fi
+else
+    echo "Tailscale is already installed"
 fi
 
 echo "Done - Base install is ready to use"
