@@ -4,6 +4,10 @@ set -eu
 
 PATH="$HOME/.local/bin:$PATH"
 
+gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+gsettings set org.gnome.desktop.wm.preferences button-layout 'icon:minimize,maximize,close'
+gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 13'
+
 if ! command -v gext --version 2>&1 >/dev/null; then
     pipx install gnome-extensions-cli --system-site-packages
 fi
