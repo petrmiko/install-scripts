@@ -87,3 +87,5 @@ fi
 
 # fonts
 sh $SCRIPT_DIR/../fonts.sh
+
+echo "Done - Base install is ready to use"
