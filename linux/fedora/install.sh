@@ -2,6 +2,8 @@
 
 set -eu
 
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+
 sudo dnf update -y
 
 # build utils and dependencies
@@ -84,26 +86,26 @@ gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
 # set fonts
 
 # nerd fonts
-echo "Installing Nerd fonts"
-rm -rf /tmp/fonts
-mkdir /tmp/fonts
+TMP_FONTS_DIR=$(mktemp -d -t install_fonts_XXXXXX)
+echo "Installing Nerd fonts (tmp dir: $TMP_FONTS_DIR)"
+trap "rm -rf '$TMP_FONTS_DIR'" EXIT
 mkdir -p "$HOME/.local/share/fonts"
 
 
 if [ ! -f "$HOME/.local/share/fonts/FiraCodeNerdFont-Regular.ttf" ]; then
-    echo "Fetching FiraCode..." && wget -q --directory-prefix=/tmp/fonts https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip
+    echo "Fetching FiraCode..." && wget -q --directory-prefix=$TMP_FONTS_DIR https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip
 else
     echo "FiraCode already installed..."
 fi
 if [ ! -f "$HOME/.local/share/fonts/JetBrainsMonoNerdFont-Regular.ttf" ]; then
-    echo "Fetching JetBrainsMono..." && wget -q --directory-prefix=/tmp/fonts https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+    echo "Fetching JetBrainsMono..." && wget -q --directory-prefix=$TMP_FONTS_DIR https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
 else
     echo "JetBrainsMono already installed..."
 fi
-if [ ! -z "$( ls -A '/tmp/fonts' )" ]; then
+if [ ! -z "$( ls -A $TMP_FONTS_DIR )" ]; then
     echo "Unpacking fonts..."
-    unzip -q -o "/tmp/fonts/*.zip" -d "/tmp/fonts"
-    mv -f -t "$HOME/.local/share/fonts" /tmp/fonts/*.ttf
+    unzip -q -o "$TMP_FONTS_DIR/*.zip" -d "$TMP_FONTS_DIR"
+    mv -f -t "$HOME/.local/share/fonts" $TMP_FONTS_DIR/*.ttf
     echo "Rebuilding font cache..."
     fc-cache
 fi
@@ -114,10 +116,10 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Ner
 gsettings set org.gnome.desktop.wm.preferences button-layout 'icon:minimize,maximize,close'
 
 # install flatpaks
-sh ../install-flatpaks.sh
+sh $SCRIPT_DIR/../install-flatpaks.sh
 
 # gnome extensions
-sh ../install-gnome-extensions.sh
+sh $SCRIPT_DIR/../install-gnome-extensions.sh
 
 # install additional apps outside of fedora repos
 echo "Installing tools outside default DNF or Flatpak repos"
@@ -155,10 +157,12 @@ else
 fi
 
 # Rust
-if ! command -v rustup --version 2>&1 >/dev/null; then
+if ! command -v cargo --version 2>&1 >/dev/null; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    cargo install cargo-update eza
+    $HOME/.cargo/bin/cargo install cargo-update eza
 else
+    rustup upgrade
+    cargo install-update -a
     echo "Rust is already installed"
 fi
 

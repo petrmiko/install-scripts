@@ -8,5 +8,5 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/petrmiko/install-scripts/m
 Run in terminal
 ```bash
 git clone https://github.com/petrmiko/install-scripts.git $HOME/.install-scripts
-sudo $HOME/.install-scripts/linux/fedora/install.sh
+$HOME/.install-scripts/linux/fedora/install.sh
 ```
