@@ -20,7 +20,8 @@ sudo dnf install --skip-unavailable -y stow \
     bat nano micro jq \
     newt \
     postgresql \
-    zsh
+    zsh \
+    zsh-syntax-highlighting
 
 # enable RPM Fusion
 sudo dnf install -y \
@@ -86,7 +87,7 @@ fi
 
 # Tailscale
 if ! command -v tailscale --version 2>&1 >/dev/null; then
-    if (whiptail --title "Tailscale" --yesno "Do you want to install Tailscale?\nAlert: needs to register device via browser!" 8 78); then
+    if (whiptail --title "Tailscale" --yesno "Do you want to install Tailscale?\nAlert: needs to register device via browser!" --defaultno 8 78); then
         sudo dnf config-manager addrepo --overwrite --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
         sudo dnf install tailscale -y
         sudo systemctl enable --now tailscaled
