@@ -36,6 +36,8 @@ brew "starship"
 brew "stow"
 # Text interface for Git repositories
 brew "tig"
+# Very fast implementation of tldr in Rust
+brew "tealdeer"
 # Terminal multiplexer
 brew "tmux"
 # Blazing fast terminal file manager written in Rust, based on async I/O
