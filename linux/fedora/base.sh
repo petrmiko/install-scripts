@@ -20,6 +20,7 @@ sudo dnf install --skip-unavailable -y stow \
     bat nano neovim micro jq \
     newt \
     postgresql \
+    tealdeer \
     zsh \
     zsh-syntax-highlighting
 
