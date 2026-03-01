@@ -11,4 +11,7 @@ sh $SCRIPT_DIR/desktop.sh
 sudo dnf install -y pipx gnome-tweaks
 sh $SCRIPT_DIR/../gnome.sh
 
+# flatpaks
+sh $SCRIPT_DIR/../flatpak.sh --gnome
+
 echo "Done - Gnome desktop is ready to use"

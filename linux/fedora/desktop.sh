@@ -14,7 +14,7 @@ sh $SCRIPT_DIR/../fonts.sh
 sudo dnf install -y alacritty firefox solaar
 
 # install HEIF/HEIC libs to see iPhone photos
-sudo dnf install -y heif-pixbuf-loader libheif-tools libheif-freeworld 
+sudo dnf install -y heif-pixbuf-loader libheif-tools libheif-freeworld
 
 # icons
 sudo dnf install -y papirus-icon-theme
@@ -28,9 +28,6 @@ echo "Applying additional dotfiles"
 pushd $HOME/.dotfiles
 stow alacritty ghostty
 popd
-
-# flatpaks
-sh $SCRIPT_DIR/../flatpak.sh
 
 # VS Code
 if ! command -v code -v 2>&1 >/dev/null; then

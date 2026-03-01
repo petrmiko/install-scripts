@@ -2,7 +2,7 @@
 
 set -eu
 
-sudo dnf update -y
+sudo dnf update -y --no-best
 
 # build utils and dependencies
 sudo dnf install -y @c-development openssl-devel \
@@ -42,16 +42,6 @@ if ! command -v starship --version 2>&1 >/dev/null; then
     curl -sS https://starship.rs/install.sh | sh -s -- --yes
 else
     echo "Starship is already installed"
-fi
-
-# Rust
-if ! command -v cargo --version 2>&1 >/dev/null; then
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    $HOME/.cargo/bin/cargo install cargo-update eza
-else
-    rustup upgrade
-    cargo install-update -a
-    echo "Rust is already installed"
 fi
 
 # dotfiles
