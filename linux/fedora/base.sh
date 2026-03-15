@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -eu
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 sudo dnf update -y --no-best
 
@@ -29,15 +30,8 @@ sudo dnf install -y \
     https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
     https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-# fetch tools outside of fedora repos
-if [ ! -d "/home/linuxbrew/.linuxbrew" ]; then
-    echo "Installing brew"
-    NONINTERACTIVE=1 /bin/bash -c "sudo $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-    ## TODO replace with Brewfile
-    brew install mise starship
-fi
+# fetch tools outside of fedora repos via Brew
+sh $SCRIPT_DIR/../brew.sh
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
