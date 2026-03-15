@@ -6,7 +6,7 @@ sudo dnf update -y --no-best
 
 # build utils and dependencies
 sudo dnf install -y @c-development openssl-devel \
-    ncurses \
+    ncurses procps-ng curl file \
     glibc-langpack-cs
 
 # console utils
@@ -29,19 +29,18 @@ sudo dnf install -y \
     https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
     https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-# fetch tools not present in fedora repos
+# fetch tools outside of fedora repos
+if [ ! -d "/home/linuxbrew/.linuxbrew" ]; then
+    echo "Installing brew"
+    NONINTERACTIVE=1 /bin/bash -c "sudo $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    ## TODO replace with Brewfile
+    brew install mise starship
+fi
+
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
-fi
-
-if [ ! -d "$HOME/.local/share/fnm" ]; then
-    curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/.local/share/fnm" --skip-shell
-fi
-
-if ! command -v starship --version 2>&1 >/dev/null; then
-    curl -sS https://starship.rs/install.sh | sh -s -- --yes
-else
-    echo "Starship is already installed"
 fi
 
 # dotfiles
