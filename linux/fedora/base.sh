@@ -57,6 +57,7 @@ fi
 stow zsh \
     git \
     fastfetch \
+    mise \
     starship \
     tmux
 
