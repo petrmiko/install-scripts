@@ -5,8 +5,10 @@ set -eu
 echo "Installing flatpaks"
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install -y --or-update \
+    it.mijorus.gearlever \
     io.beekeeperstudio.Studio \
-    io.podman_desktop.PodmanDesktop
+    io.podman_desktop.PodmanDesktop \
+    org.onlyoffice.desktopeditors
 
 case "${1:-}" in
     --gnome)
