@@ -3,7 +3,7 @@
 set -eu
 
 sudo pacman -S --noconfirm stow \
-    bat htop eza zoxide teeldear \
+    bat htop eza zoxide tealdeer \
     mise \
     nvtop s-tui \
     podman rustup tig tmux \
