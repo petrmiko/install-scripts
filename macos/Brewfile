@@ -71,6 +71,8 @@ cask "alacritty"
 cask "alfred"
 # Enable Windows-like alt-tab
 cask "alt-tab"
+# Application uninstaller
+cask "appcleaner"
 # Tool to flash OS images to SD cards & USB drives
 cask "balenaetcher"
 # Cross platform SQL editor and database management app
