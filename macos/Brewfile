@@ -53,8 +53,6 @@ brew "tig"
 brew "tmux"
 # Internet file retriever
 brew "wget"
-# Blazing fast terminal file manager written in Rust, based on async I/O
-brew "yazi"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
 # Fish shell like syntax highlighting for zsh
