@@ -35,11 +35,4 @@ curl -O https://raw.githubusercontent.com/petrmiko/install-scripts/main/macos/Br
 brew bundle install || true
 rm Brewfile
 
-# Rust
-if ! command -v rustup --version 2>&1 >/dev/null; then
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-else
-    echo "Rust is already installed"
-fi
-
 echo "Done. Open a new terminal to see the changes."
