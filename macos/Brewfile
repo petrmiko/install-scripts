@@ -51,6 +51,8 @@ brew "tealdeer"
 brew "tig"
 # Terminal multiplexer
 brew "tmux"
+# Drop-in replacement for tmux-plugin-manager (tpm) with a TUI
+brew "tpack"
 # Internet file retriever
 brew "wget"
 # Shell extension to navigate your filesystem faster
