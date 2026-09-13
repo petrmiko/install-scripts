@@ -20,7 +20,7 @@ sudo dnf install -y heif-pixbuf-loader libheif-tools libheif-freeworld
 sudo dnf install -y papirus-icon-theme
 
 # ghostty
-sudo dnf copr enable pgdev/ghostty -y
+sudo dnf copr enable scottames/ghostty -y
 sudo dnf install ghostty -y
 
 # dotfiles
